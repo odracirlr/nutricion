@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kenia Mancera · Nutrióloga</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #faf6f1;
+      --warm-white: #fdf9f4;
+      --gold: #c4a76b;
+      --gold-light: #d4bc8a;
+      --gold-dark: #a8894e;
+      --text-dark: #2c2416;
+      --text-mid: #5a4e3a;
+      --text-soft: #8c7d68;
+      --sand: #e8dfd0;
+      --sand-dark: #d5c9b5;
+      --green-soft: #a8b89a;
+      --accent: #c4a76b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(250,246,241,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--sand);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 24px rgba(196,167,107,.12); }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a {
+      font-size: .78rem; font-weight: 400; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--text-mid); text-decoration: none; transition: color .25s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      font-size: .75rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+      padding: .6rem 1.6rem; border: 1px solid var(--gold); color: var(--gold);
+      text-decoration: none; transition: all .25s; background: transparent;
+    }
+    .nav-cta:hover { background: var(--gold); color: #fff; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-circle {
+      position: absolute; right: -8vw; top: 10vh;
+      width: 55vw; height: 55vw; border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #e8dfd0 0%, #d5c9b5 100%);
+      opacity: .45; z-index: 0;
+    }
+    .hero-bg-lines {
+      position: absolute; left: 0; bottom: 0; width: 100%; height: 200px;
+      background: repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(196,167,107,.06) 38px, rgba(196,167,107,.06) 39px);
+      z-index: 0;
+    }
+
+    .hero-content { position: relative; z-index: 2; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .8rem;
+      font-size: .7rem; font-weight: 400; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.6rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 2.4rem; height: 1px; background: var(--gold);
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.4rem, 5.5vw, 6rem);
+      font-weight: 300; line-height: 1;
+      color: var(--text-dark);
+      letter-spacing: -.01em;
+      margin-bottom: .5rem;
+    }
+    .hero-name strong { font-weight: 600; display: block; }
+
+    .hero-title {
+      font-size: .8rem; font-weight: 400; letter-spacing: .35em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-title::after { content: ''; flex: 1; height: 1px; background: var(--sand-dark); }
+
+    .hero-bio {
+      font-size: 1.05rem; font-weight: 300; line-height: 1.8;
+      color: var(--text-mid); max-width: 420px; margin-bottom: 1.8rem;
+      font-style: italic;
+    }
+
+    .hero-credentials {
+      display: flex; gap: 2rem; margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .cred-item {
+      display: flex; flex-direction: column; gap: .2rem;
+    }
+    .cred-label {
+      font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--text-soft);
+    }
+    .cred-value {
+      font-size: .88rem; font-weight: 500; color: var(--text-dark);
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      padding: .85rem 2.2rem;
+      background: var(--gold);
+      color: #fff;
+      font-size: .78rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all .3s; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(196,167,107,.35); }
+
+    .btn-secondary {
+      padding: .85rem 2.2rem;
+      background: transparent; border: 1px solid var(--sand-dark);
+      color: var(--text-mid);
+      font-size: .78rem; font-weight: 400; letter-spacing: .2em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer; transition: all .3s; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-image-wrap {
+      position: relative; z-index: 2;
+      display: flex; justify-content: center; align-items: flex-end;
+    }
+
+    .hero-photo-frame {
+      position: relative; width: 100%; max-width: 480px;
+    }
+    .hero-photo-frame::before {
+      content: ''; position: absolute; top: -1.5rem; left: -1.5rem;
+      right: 1.5rem; bottom: 1.5rem;
+      border: 1px solid rgba(196,167,107,.3); z-index: -1;
+    }
+    .hero-photo-frame img {
+      width: 100%; display: block; object-fit: cover;
+      height: 70vh; max-height: 620px; object-position: top center;
+    }
+
+    .hero-badge {
+      position: absolute; bottom: -1.5rem; left: -2rem;
+      background: var(--text-dark); color: #fff;
+      padding: 1.2rem 1.8rem;
+      font-size: .72rem; line-height: 1.5;
+    }
+    .hero-badge strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; }
+
+    /* ── ESPECIALIDADES STRIP ── */
+    .specialties-strip {
+      background: var(--text-dark);
+      padding: 1.4rem 4rem;
+      display: flex; gap: 0; overflow: hidden;
+    }
+    .spec-item {
+      flex: 1; text-align: center;
+      font-size: .68rem; letter-spacing: .25em; text-transform: uppercase;
+      color: rgba(255,255,255,.65); padding: .4rem 1rem;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .spec-item:last-child { border-right: none; }
+    .spec-item span { color: var(--gold-light); font-weight: 500; }
+
+    /* ── SECTION WRAPPER ── */
+    section { padding: 6rem 4rem; }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: .8rem;
+      font-size: .68rem; font-weight: 400; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+    }
+    .section-label::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--gold); }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 3.5vw, 3.6rem);
+      font-weight: 400; line-height: 1.1;
+      color: var(--text-dark);
+      margin-bottom: 1.2rem;
+    }
+
+    .section-desc {
+      font-size: 1rem; font-weight: 300; line-height: 1.8;
+      color: var(--text-mid); max-width: 520px;
+    }
+
+    /* ── INCLUDES / QUÉ INCLUYE ── */
+    #incluye {
+      background: var(--warm-white);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: start;
+    }
+
+    .incluye-intro { padding-top: 1rem; }
+
+    .check-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: .9rem; }
+    .check-list li {
+      display: flex; align-items: flex-start; gap: .9rem;
+      font-size: .95rem; font-weight: 300; color: var(--text-mid); line-height: 1.5;
+    }
+    .check-list li::before {
+      content: '✓'; color: var(--gold); font-size: .8rem;
+      width: 20px; height: 20px; background: rgba(196,167,107,.1);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .check-list li strong { color: var(--text-dark); font-weight: 500; }
+
+    .check-sub {
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); margin-top: 2rem; margin-bottom: .8rem;
+    }
+
+    /* ENTREGA grid */
+    .entrega-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: .8rem;
+      margin-top: 1rem;
+    }
+    .entrega-card {
+      background: var(--cream);
+      border: 1px solid var(--sand);
+      padding: 1.1rem 1.2rem;
+      transition: all .25s;
+    }
+    .entrega-card:hover { border-color: var(--gold-light); transform: translateY(-2px); }
+    .entrega-icon { font-size: 1.2rem; margin-bottom: .4rem; }
+    .entrega-title { font-size: .82rem; font-weight: 500; color: var(--text-dark); }
+
+    /* ── COSTOS ── */
+    #costos { background: var(--text-dark); }
+    #costos .section-label::before { background: var(--gold-light); }
+    #costos .section-label { color: var(--gold-light); }
+    #costos .section-title { color: #fff; }
+
+    .pricing-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+
+    .price-card {
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 2.5rem 2rem;
+      position: relative; transition: all .3s;
+    }
+    .price-card:hover {
+      border-color: var(--gold); transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(196,167,107,.2);
+    }
+    .price-card.featured {
+      border-color: var(--gold); background: rgba(196,167,107,.08);
+    }
+    .price-card.featured::before {
+      content: 'POPULAR';
+      position: absolute; top: -1px; right: 1.5rem;
+      font-size: .6rem; letter-spacing: .2em; font-weight: 600;
+      background: var(--gold); color: #fff; padding: .25rem .7rem;
+    }
+
+    .price-type {
+      font-size: .65rem; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--gold-light); margin-bottom: 1rem;
+    }
+    .price-amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 400; color: #fff;
+      line-height: 1; margin-bottom: .3rem;
+    }
+    .price-amount span { font-size: 1.4rem; font-weight: 300; vertical-align: top; margin-top: .5rem; display: inline-block; }
+    .price-desc { font-size: .82rem; color: rgba(255,255,255,.5); margin-bottom: 2rem; }
+
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: .6rem; margin-bottom: 2rem; }
+    .price-features li { font-size: .82rem; color: rgba(255,255,255,.7); display: flex; align-items: center; gap: .6rem; }
+    .price-features li::before { content: '—'; color: var(--gold-light); }
+
+    .btn-price {
+      display: block; text-align: center;
+      padding: .75rem; border: 1px solid rgba(255,255,255,.2);
+      color: rgba(255,255,255,.7); text-decoration: none;
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+      transition: all .25s;
+    }
+    .btn-price:hover, .price-card.featured .btn-price {
+      background: var(--gold); border-color: var(--gold); color: #fff;
+    }
+
+    /* ── HORARIOS ── */
+    #horarios { background: var(--cream); }
+
+    .schedule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+
+    .schedule-days { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+
+    .day-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid var(--sand); background: var(--warm-white);
+      transition: all .25s;
+    }
+    .day-row:hover { border-color: var(--gold-light); }
+
+    .day-name {
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 500;
+      color: var(--text-dark);
+    }
+    .day-time {
+      font-size: .85rem; color: var(--text-mid); font-weight: 300;
+    }
+    .day-badge {
+      font-size: .6rem; letter-spacing: .15em; text-transform: uppercase;
+      padding: .2rem .6rem; background: rgba(196,167,107,.1); color: var(--gold);
+    }
+
+    .location-box {
+      background: var(--warm-white); border: 1px solid var(--sand); padding: 2.5rem;
+      margin-top: 2rem;
+    }
+    .location-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+    .location-label {
+      font-size: .65rem; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .5rem;
+    }
+    .location-address {
+      font-size: .95rem; line-height: 1.7; color: var(--text-mid); font-weight: 300;
+    }
+    .location-address strong { color: var(--text-dark); font-weight: 500; }
+
+    /* ── WHATSAPP CTA ── */
+    #cta {
+      background: var(--text-dark);
+      text-align: center; padding: 7rem 4rem;
+    }
+    #cta .section-title { color: #fff; margin: 0 auto 1rem; }
+    #cta .section-label { justify-content: center; }
+    #cta .section-label::before { display: none; }
+    #cta p { font-size: 1rem; color: rgba(255,255,255,.55); font-weight: 300; margin-bottom: 3rem; }
+
+    .cta-phone {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 300; color: var(--gold-light);
+      letter-spacing: .05em; margin-bottom: 2rem;
+      display: block;
+    }
+
+    .whatsapp-btn {
+      display: inline-flex; align-items: center; gap: .8rem;
+      padding: 1rem 2.8rem;
+      background: #25d366; color: #fff;
+      font-size: .8rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+      text-decoration: none; transition: all .3s;
+    }
+    .whatsapp-btn:hover { background: #1ebe5a; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,.35); }
+    .whatsapp-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* ── VALUES STRIP ── */
+    .values-strip {
+      background: var(--sand);
+      padding: 3.5rem 4rem;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    }
+    .value-item { text-align: center; }
+    .value-icon { font-size: 1.6rem; margin-bottom: .8rem; display: block; }
+    .value-label {
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--text-mid); font-weight: 500;
+      display: block;
+    }
+    .value-sub {
+      font-size: .8rem; color: var(--text-soft); font-weight: 300;
+      display: block; margin-top: .25rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text-dark); border-top: 1px solid rgba(255,255,255,.06);
+      padding: 2.5rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 500;
+      color: rgba(255,255,255,.7); letter-spacing: .1em;
+    }
+    .footer-logo span { color: var(--gold-light); }
+    footer p { font-size: .72rem; color: rgba(255,255,255,.3); }
+
+    /* ── FLOATING WA BUTTON ── */
+    .floating-wa {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25d366; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,.45);
+      text-decoration: none; transition: all .3s;
+      animation: pulse-wa 2.5s infinite;
+    }
+    .floating-wa:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,.6); }
+    .floating-wa svg { width: 28px; height: 28px; fill: #fff; }
+    @keyframes pulse-wa {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,.45), 0 0 0 0 rgba(37,211,102,.3); }
+      50% { box-shadow: 0 4px 20px rgba(37,211,102,.45), 0 0 0 10px rgba(37,211,102,0); }
+    }
+
+    /* ── SCROLL FADE IN ── */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1000px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; gap: 3rem; }
+      .hero-photo-frame { max-width: 100%; }
+      .hero-photo-frame img { height: 55vw; max-height: 380px; }
+      section { padding: 4rem 1.5rem; }
+      #incluye { grid-template-columns: 1fr; gap: 3rem; }
+      .pricing-cards { grid-template-columns: 1fr; }
+      .schedule-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .values-strip { grid-template-columns: 1fr 1fr; padding: 2.5rem 1.5rem; }
+      .specialties-strip { padding: 1rem 1.5rem; flex-wrap: wrap; }
+      .entrega-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+      #cta { padding: 5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">K<span>M</span></a>
+  <ul class="nav-links">
+    <li><a href="#incluye">Servicios</a></li>
+    <li><a href="#costos">Costos</a></li>
+    <li><a href="#horarios">Horarios</a></li>
+    <li><a href="#cta">Contacto</a></li>
+  </ul>
+  <a href="https://wa.me/5215580784231" target="_blank" class="nav-cta">Agendar cita</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-lines"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Nutrióloga certificada</div>
+    <h1 class="hero-name">
+      Kenia<strong>Mancera</strong>
+    </h1>
+    <div class="hero-title">Nutrióloga &nbsp;·&nbsp; Universidad Iberoamericana</div>
+
+    <p class="hero-bio">
+      "Mi nombre es Kenia Mancera y soy nutrióloga egresada de la Universidad Iberoamericana con experiencia clínica y en deporte."
+    </p>
+
+    <div class="hero-credentials">
+      <div class="cred-item">
+        <span class="cred-label">Título</span>
+        <span class="cred-value">74878</span>
+      </div>
+      <div class="cred-item">
+        <span class="cred-label">Cédula Profesional</span>
+        <span class="cred-value">12418406</span>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="https://wa.me/5215580784231" target="_blank" class="btn-primary">Agendar consulta</a>
+      <a href="#incluye" class="btn-secondary">Ver servicios</a>
+    </div>
+  </div>
+
+  <div class="hero-image-wrap">
+    <div class="hero-photo-frame">
+      <img src="/mnt/user-data/uploads/d40873a0-e671-4469-b84d-76a956b3c724.jpg" alt="Kenia Mancera Nutrióloga" />
+      <div class="hero-badge">
+        <strong>+5 años</strong>
+        experiencia clínica
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALTIES STRIP -->
+<div class="specialties-strip">
+  <div class="spec-item"><span>Pérdida de peso</span></div>
+  <div class="spec-item"><span>Ganancia muscular</span></div>
+  <div class="spec-item"><span>Competencias deportivas</span></div>
+  <div class="spec-item"><span>Mejora de salud</span></div>
+  <div class="spec-item"><span>Nutrición clínica</span></div>
+</div>
+
+<!-- QUÉ INCLUYE -->
+<section id="incluye">
+  <div class="incluye-intro fade-up">
+    <div class="section-label">Lo que obtienes</div>
+    <h2 class="section-title">¿Qué incluye<br>tu consulta?</h2>
+    <p class="section-desc">
+      Cada consulta está diseñada para darte resultados reales, con tecnología de precisión y un plan completamente personalizado.
+    </p>
+
+    <p class="check-sub">Medición corporal</p>
+    <ul class="check-list">
+      <li>Reporte de composición corporal <strong>INBODY 570</strong></li>
+      <li>Análisis músculo-grasa (Kg y porcentaje)</li>
+      <li>Análisis de músculo y grasa por segmentos (fuerza y distribución)</li>
+      <li>Hidratación</li>
+      <li>Peso Kg</li>
+    </ul>
+
+    <p class="check-sub">Durante la consulta</p>
+    <ul class="check-list">
+      <li>Medición y registro de circunferencias con cinta métrica</li>
+    </ul>
+  </div>
+
+  <div class="fade-up">
+    <div class="section-label">Entrega</div>
+    <h2 class="section-title">Plan de alimentación<br><em>personalizado</em></h2>
+    <p class="section-desc" style="margin-bottom:2rem">
+      Recibirás un plan mensual completo adaptado 100% a tus objetivos y estilo de vida.
+    </p>
+
+    <div class="entrega-grid">
+      <div class="entrega-card">
+        <div class="entrega-icon">📋</div>
+        <div class="entrega-title">Ejemplo de distribución</div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-icon">🍽️</div>
+        <div class="entrega-title">Menú detallado</div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-icon">🏷️</div>
+        <div class="entrega-title">Marcas de productos</div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-icon">🔄</div>
+        <div class="entrega-title">Equivalencias</div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-icon">⏱️</div>
+        <div class="entrega-title">Ventanas de entrenamiento</div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-icon">💊</div>
+        <div class="entrega-title">Suplementación</div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-icon">👩‍🍳</div>
+        <div class="entrega-title">Recetas saludables</div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-icon">📝</div>
+        <div class="entrega-title">Recomendaciones generales</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COSTOS -->
+<section id="costos">
+  <div class="fade-up" style="text-align:center; max-width:600px; margin: 0 auto;">
+    <div class="section-label" style="justify-content:center">Inversión en tu salud</div>
+    <h2 class="section-title" style="color:#fff; text-align:center">Costos de consulta</h2>
+    <p style="color:rgba(255,255,255,.5); font-weight:300; font-size:.95rem">
+      Precios transparentes, sin sorpresas. Elige el plan que mejor se adapte a tus objetivos.
+    </p>
+  </div>
+
+  <div class="pricing-cards fade-up">
+    <div class="price-card">
+      <div class="price-type">Consulta Inicial</div>
+      <div class="price-amount"><span>$</span>900</div>
+      <div class="price-desc">MXN · Pago único</div>
+      <ul class="price-features">
+        <li>Análisis INBODY 570</li>
+        <li>Evaluación completa</li>
+        <li>Plan mensual inicial</li>
+        <li>Seguimiento WhatsApp</li>
+      </ul>
+      <a href="https://wa.me/5215580784231?text=Hola%20Kenia,%20me%20interesa%20una%20consulta%20inicial" target="_blank" class="btn-price">Agendar ahora</a>
+    </div>
+
+    <div class="price-card featured">
+      <div class="price-type">Seguimiento Mensual</div>
+      <div class="price-amount"><span>$</span>750</div>
+      <div class="price-desc">MXN · Por mes</div>
+      <ul class="price-features">
+        <li>Control de avances</li>
+        <li>Ajuste de plan alimenticio</li>
+        <li>Nuevas recetas mensuales</li>
+        <li>Seguimiento WhatsApp continuo</li>
+      </ul>
+      <a href="https://wa.me/5215580784231?text=Hola%20Kenia,%20me%20interesa%20el%20seguimiento%20mensual" target="_blank" class="btn-price">Agendar ahora</a>
+    </div>
+
+    <div class="price-card">
+      <div class="price-type">Parejas</div>
+      <div class="price-amount"><span>$</span>1,400</div>
+      <div class="price-desc">MXN · Ambos</div>
+      <ul class="price-features">
+        <li>Planes individualizados</li>
+        <li>Análisis para los dos</li>
+        <li>Recetas en común</li>
+        <li>Seguimiento WhatsApp</li>
+      </ul>
+      <a href="https://wa.me/5215580784231?text=Hola%20Kenia,%20me%20interesa%20la%20consulta%20para%20parejas" target="_blank" class="btn-price">Agendar ahora</a>
+    </div>
+  </div>
+</section>
+
+<!-- HORARIOS -->
+<section id="horarios">
+  <div class="schedule-grid">
+    <div class="fade-up">
+      <div class="section-label">Disponibilidad</div>
+      <h2 class="section-title">Días y<br>Horarios</h2>
+      <p class="section-desc">
+        Atención presencial en Naucalpan, Estado de México. Agenda tu cita con tiempo.
+      </p>
+
+      <div class="schedule-days" style="margin-top:2rem">
+        <div class="day-row">
+          <span class="day-name">Lunes, Martes,<br>Jueves y Viernes</span>
+          <span class="day-time">15:00 – 18:30</span>
+          <span class="day-badge">Presencial</span>
+        </div>
+        <div class="day-row">
+          <span class="day-name">Sábado</span>
+          <span class="day-time">08:00 – 12:30</span>
+          <span class="day-badge">Presencial</span>
+        </div>
+      </div>
+
+      <a href="https://wa.me/5215580784231?text=Hola%20Kenia,%20quisiera%20consultar%20disponibilidad" target="_blank" class="btn-primary" style="margin-top:2rem; display:inline-block">
+        Consultar disponibilidad
+      </a>
+    </div>
+
+    <div class="fade-up">
+      <div class="location-box">
+        <div class="location-icon">📍</div>
+        <div class="location-label">Modalidad presencial</div>
+        <div class="location-address">
+          <strong>Circunvalación Poniente No. 12</strong><br>
+          Colonia Vista del Valle<br>
+          Sección Electricistas<br>
+          Naucalpan, Estado de México<br>
+          <strong>C.P. 53290</strong>
+        </div>
+      </div>
+
+      <div class="location-box" style="margin-top:1rem; border-color: rgba(196,167,107,.3);">
+        <div class="location-label">Seguimiento por WhatsApp</div>
+        <div class="location-address" style="font-size:1.6rem; color: var(--text-dark); font-family:'Cormorant Garamond',serif; font-weight:500; margin-top:.4rem">
+          55 8078 4231
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES STRIP -->
+<div class="values-strip">
+  <div class="value-item fade-up">
+    <span class="value-icon">🌿</span>
+    <span class="value-label">Nutrir tu cuerpo</span>
+    <span class="value-sub">es transformar tu vida</span>
+  </div>
+  <div class="value-item fade-up">
+    <span class="value-icon">🎯</span>
+    <span class="value-label">Enfoque personalizado</span>
+    <span class="value-sub">adaptado a ti</span>
+  </div>
+  <div class="value-item fade-up">
+    <span class="value-icon">📈</span>
+    <span class="value-label">Resultados sostenibles</span>
+    <span class="value-sub">para toda la vida</span>
+  </div>
+  <div class="value-item fade-up">
+    <span class="value-icon">❤️</span>
+    <span class="value-label">Bienestar integral</span>
+    <span class="value-sub">mente, cuerpo y hábitos</span>
+  </div>
+</div>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="fade-up">
+    <div class="section-label" style="justify-content:center; color:var(--gold-light)">¿Lista para empezar?</div>
+    <h2 class="section-title" style="color:#fff; text-align:center; margin:0 auto 1rem">
+      Da el primer paso<br><em style="font-weight:300">hacia tu mejor versión</em>
+    </h2>
+    <p>Escríbeme directamente y agenda tu consulta inicial hoy.</p>
+    <span class="cta-phone">55 8078 4231</span>
+    <a href="https://wa.me/5215580784231?text=Hola%20Kenia!%20Me%20interesa%20agendar%20una%20consulta" target="_blank" class="whatsapp-btn">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Escribir por WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Kenia <span>Mancera</span> · Nutrióloga</div>
+  <p>© 2025 · Naucalpan, Estado de México · Cédula 12418406</p>
+</footer>
+
+<!-- FLOATING WA -->
+<a href="https://wa.me/5215580784231?text=Hola%20Kenia!%20Me%20interesa%20agendar%20una%20consulta" target="_blank" class="floating-wa" title="Escríbeme por WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+<script>
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Fade-up on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
